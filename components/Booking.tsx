@@ -40,7 +40,7 @@ export default function ProfileForm() {
     }
     return (
         <Form {...form}>
-            <div className={''}>
+            <div className={'p-24'}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
                     <div>
                         <FormField
