@@ -40,6 +40,16 @@ export default function ProfileForm() {
     }
     return (
         <div className={'p-24 space-y-8'}>
+            <div className={'space-x-3'}>
+                <Label htmlFor="date">Date</Label>
+                <DatePicker/>
+            </div>
+            <div className={'flex-col justify-center space-y-4'}>
+                <Label htmlFor="guest">Number of Guests</Label>
+                <Input type="number" min={'1'} id="guest" placeholder="3" />
+            </div>
+
+
             <Form {...form}>
                 <div >
                     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -75,19 +85,13 @@ export default function ProfileForm() {
                                     <FormMessage />
                                 </FormItem>
                             )}/>
-
+                            <Button type="submit">Submit</Button>
                         </div>
 
                     </form>
                 </div>
             </Form>
-            <div className={'grid w-full max-w-sm items-center gap-4'}>
-                <Label>Pick a Date</Label>
-                <DatePicker/>
-                <Label htmlFor="guest">Number of Guests</Label>
-                <Input type="number" min={'1'} id="guest" placeholder="3" />
-                <Button type="submit">Submit</Button>
-            </div>
+
         </div>
     )
 }
