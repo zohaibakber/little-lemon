@@ -1,11 +1,9 @@
 "use client"
 
-import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import {
     Form,
     FormControl,
-    FormDescription,
     FormField,
     FormItem,
     FormLabel,
@@ -15,6 +13,8 @@ import { Input } from "@/components/ui/input"
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
 import {useForm} from "react-hook-form";
+import DatePicker from './DatePicker'
+import {Label} from "@radix-ui/react-label";
 
 const formSchema = z.object({
     name: z.string().min(2, {
@@ -39,52 +39,55 @@ export default function ProfileForm() {
         console.log(values)
     }
     return (
-        <Form {...form}>
-            <div className={'p-24'}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-                    <div>
-                        <FormField
-                            control={form.control}
-                            name="name"
-                            render={({ field }) => (
+        <div className={'p-24 space-y-8'}>
+            <Form {...form}>
+                <div >
+                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+                        <div className={'space-y-8'}>
+                            <FormField
+                                control={form.control}
+                                name="name"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Full Name</FormLabel>
+                                        <FormControl>
+                                            <Input placeholder="MadMax" {...field} />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField name={"email"} control={form.control} render={({field}) => (
                                 <FormItem>
-                                    <FormLabel>Full Name</FormLabel>
+                                    <FormLabel>Email</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="MadMax" {...field} />
+                                        <Input placeholder="madmax@lol.com" {...field} />
                                     </FormControl>
-                                    <FormDescription>
-                                        Enter your full name.
-                                    </FormDescription>
                                     <FormMessage />
                                 </FormItem>
-                            )}
-                        />
-                        <FormField name={"email"} control={form.control} render={({field}) => (
-                            <FormItem>
-                                <FormLabel>Email</FormLabel>
-                                <FormControl>
-                                    <Input placeholder="madmax@lol.com" {...field} />
-                                </FormControl>
-                                <FormDescription>
-                                    Enter your email.
-                                </FormDescription>
-                                <FormMessage />
-                            </FormItem>
-                        )}/>
-                        <FormField name={"phone"} control={form.control} render={({field}) => (
-                            <FormItem>
-                                <FormLabel>Phone</FormLabel>
-                                <FormControl>
-                                    <Input placeholder="+10000001231" {...field} />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}/>
+                            )}/>
+                            <FormField name={"phone"} control={form.control} render={({field}) => (
+                                <FormItem>
+                                    <FormLabel>Phone</FormLabel>
+                                    <FormControl>
+                                        <Input placeholder="+10000001231" {...field} />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}/>
 
-                    </div>
-                    <Button type="submit">Submit</Button>
-                </form>
+                        </div>
+
+                    </form>
+                </div>
+            </Form>
+            <div className={'grid w-full max-w-sm items-center gap-4'}>
+                <Label>Pick a Date</Label>
+                <DatePicker/>
+                <Label htmlFor="guest">Number of Guests</Label>
+                <Input type="number" min={'1'} id="guest" placeholder="3" />
+                <Button type="submit">Submit</Button>
             </div>
-        </Form>
+        </div>
     )
 }
