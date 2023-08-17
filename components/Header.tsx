@@ -1,22 +1,45 @@
-'use client'
+"use client";
 import Link from "next/link";
 import Image from "next/image";
-import logo from './assets/logo.svg'
+import Logo from "@/components/assets/logo.svg";
+import { Button } from "./ui/button";
+import HamNav from "./HamNav";
+
+const navLinks = [
+  { name: "Home", link: "/" },
+  { name: "Menu", link: "/menu" },
+  { name: "Reserve a Table", link: "/booking" },
+  { name: "About Us", link: "/about" },
+];
+
 function Header() {
-    return(
-        <div className={'flex justify-between items-center p-8 mx-52'}>
-            <div>
-                <Image src={logo} alt={'logo'} width={250} height={250}/>
+  
+  return (
+    <nav className={"flex flex-col items-center justify-center lg:grid grid-cols-3 justify-items-center p-2"}>
+      <div className="h-10 cursor-pointer my-auto">
+        <Image className="" src={Logo} alt={"logo"}/>
+      </div>
+      <HamNav />
+      <div
+        className={
+          "hidden lg:flex justify-center items-center gap-5 text-xl font-medium mt-1"
+        }
+      >
+        {navLinks.map((link) => (
+          <Link href={link.link} key={link.name}>
+            <div className="whitespace-nowrap">
+            {link.name}
             </div>
-            <div className={'flex justify-center items-center gap-5 text-xl font-medium mt-1'}>
-                <Link className={'hover:text-[#F4CE14]'} href={'/'}>Home</Link>
-                <Link className={'hover:text-[#F4CE14]'} href={'/menu'}>Menu</Link>
-                <Link className={'hover:text-[#F4CE14]'} href={'/booking'}>Reserve a Table</Link>
-                <Link className={'hover:text-[#F4CE14]'} href={'/about'}>About Us</Link>
-                <Link className={'font-semibold bg-[#F4CE14] rounded p-3 hover:bg-[#495E57] hover:text-[#F4CE14]'} href={'/login'}>Login/Signup</Link>
-            </div>
-        </div>
-    )
+          </Link>
+        ))}
+      </div>
+      <div className="invisible lg:visible hover:scale-105 hover:transition-all">
+          <Link href={'/signup'}>
+            <Button>Sign Up</Button>
+          </Link>
+      </div>
+    </nav>
+  );
 }
 
-export default Header
+export default Header;
